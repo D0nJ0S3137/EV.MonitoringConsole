@@ -65,13 +65,17 @@ So now you can test your Mosquitto server using the following commands:
 5. mosquitto_sub -h "Broker IP or Raspberry IP" -t "test/topic"
 6. mosquitto_pub -h "Broker IP or Raspberry IP" -t "test/topic" -m "Test Message"
 
+## Web Server
 
+Finally, the important part of this project is located within our web server. This was created with NodeJS to host an HTML page where all the information can be seen in real time and from the browser. The server is located in server.js and the topics are configured to receive the information. There are some examples of possible modifiable topics for the desired purpose. This activates the page within the "public" folder, so you must create a folder with that name and place inside the "index.html" file in which the entire frontend of our page is located. You can use the following command line to activate it:
 
-## Créditos
+1. sudo node server.js
 
-Agradecimientos a quienes han contribuido al proyecto.
+You can maintain this server opened using pm2 from Node. 
 
-## Licencia
+## Credits
 
-Especifica la licencia bajo la cual se distribuye el proyecto.
+If you want to get more information, you can visit the following links:
+https://github.com/jiteshsaini/mqtt-demo
+https://helloworld.co.in/article/mqtt-raspberry-pi-esp32
 
