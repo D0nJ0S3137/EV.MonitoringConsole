@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Sensor Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            grid-column: span 2;
+            margin-bottom: 20px;
+        }
+
+        .sensor {
+            background: #eee;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .gauge {
+            font-size: 24px;
+            color: #333;
+            position: relative;
+        }
+
+        .value {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .message {
+            font-size: 24px;
+            color: #0066cc;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function fetchSensorData() {
+            fetch('/sensors')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Received sensor data:', data);
+                    document.getElementById('battery').textContent = data.battery + '%';
+                    document.getElementById('speed').textContent = data.speed + ' km/h';
+                    document.getElementById('radiation').textContent = data.radiation + ' µSv/h';
+                    document.getElementById('message').textContent = data.message || "No messages";
+                })
+                .catch(error => console.error('Error fetching sensor data:', error));
+        }
+
+        setInterval(fetchSensorData, 2000); // Fetch sensor data every 2 seconds
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Car Sensor Dashboard</h1>
+        <div class="sensor">
+            <h2>Battery Level</h2>
+            <div class="gauge">
+                <div id="battery" class="value">0%</div>
+            </div>
+        </div>
+        <div class="sensor">
+            <h2>Speed</h2>
+            <div class="gauge">
+                <div id="speed" class="value">0 km/h</div>
+            </div>
+        </div>
+        <div class="sensor">
+            <h2>Radiation</h2>
+            <div class="gauge">
+                <div id="radiation" class="value">0 µSv/h</div>
+            </div>
+        </div>
+        <div class="sensor">
+            <h2>Messages</h2>
+            <div class="gauge message">
+                <div id="message" class="value">No messages</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
